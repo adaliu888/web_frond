@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>CORS 跨域带 Cookie 示例</title>
+</head>
+<body>
+  <button id="btn">发起跨域请求</button>
+  <div id="result"></div>
+  <script>
+    document.getElementById('btn').onclick = async function() {
+      const res = await fetch('http://localhost:4000/api/data', {
+        method: 'GET',
+        credentials: 'include' // 关键：允许携带 cookie
+      });
+      const data = await res.json();
+      document.getElementById('result').innerText = JSON.stringify(data);
+      // 检查 cookie
+      document.getElementById('result').innerText += '\\n当前 document.cookie: ' + document.cookie;
+    }
+  </script>
+</body>
+</html>
